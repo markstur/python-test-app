@@ -18,10 +18,11 @@ def test_chown():
     # uid = os.getuid()
     # gid = os.getgid()
     nobody = pwd.getpwnam("nobody")
+    print(nobody)
     uid = nobody.pw_uid  # os.getuid()
     gid = nobody.pw_gid  # os.getgid()
-    os.chown(testfile, uid, gid)
     print("os.chown", testfile, uid, gid)
+    os.chown(testfile, uid, gid)
 
     print("TEST5")
     print("st_uid:", os.stat(testfile).st_uid)
