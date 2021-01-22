@@ -15,16 +15,14 @@ def test_chown():
     print("st_gid:", os.stat(testfile).st_gid)
 
     print("TEST4")
-    # uid = os.getuid()
-    # gid = os.getgid()
     nobody = pwd.getpwnam("nobody")
     print(nobody)
-    uid = nobody.pw_uid  # os.getuid()
-    gid = nobody.pw_gid  # os.getgid()
+    uid = nobody.pw_uid  # nobody user 99
+    gid = 100  # users group 100
     print("os.chown", testfile, uid, gid)
-    os.chown(testfile, uid, gid)
 
     print("TEST5")
+    os.chown(testfile, uid, gid)
     print("st_uid:", os.stat(testfile).st_uid)
     print("st_gid:", os.stat(testfile).st_gid)
 
