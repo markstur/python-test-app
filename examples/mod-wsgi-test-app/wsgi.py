@@ -8,8 +8,8 @@ def test_chown():
     testfile = "~/testfile.txt"
 
     print("TEST2")
-    os.close(os.open(testfile, os.O_CREAT))
-
+    os.close(os.open(os.path.expanduser(testfile), os.O_CREAT))
+    
     print("TEST3")
     print("st_uid:", os.stat(testfile).st_uid)
     print("st_gid:", os.stat(testfile).st_gid)
