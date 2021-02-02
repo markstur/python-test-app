@@ -5,7 +5,7 @@ application = Flask(__name__)
 
 def test_chown():
     print("TEST1")
-    testfile = "/tmp/testfile.txt"
+    testfile = "~/testfile.txt"
 
     print("TEST2")
     os.close(os.open(testfile, os.O_CREAT))
