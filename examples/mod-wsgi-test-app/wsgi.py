@@ -20,8 +20,8 @@ def test_chown():
 
 
     print("TEST5")
-    print("os.chown", testfile, -1, 100)
-    os.chown(testfile, -1, 100)
+    print("os.chown", testfile, -1, 5678)
+    os.chown(testfile, -1, 5678)
     print("st_uid:", os.stat(testfile).st_uid)
     print("st_gid:", os.stat(testfile).st_gid)
 
