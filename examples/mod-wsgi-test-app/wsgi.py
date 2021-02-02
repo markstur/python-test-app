@@ -5,10 +5,10 @@ application = Flask(__name__)
 
 def test_chown():
     print("TEST1")
-    testfile = "~/testfile.txt"
+    testfile = os.path.expanduser("~/testfile.txt")
 
     print("TEST2")
-    os.close(os.open(os.path.expanduser(testfile), os.O_CREAT))
+    os.close(os.open(testfile, os.O_CREAT))
     
     print("TEST3")
     print("st_uid:", os.stat(testfile).st_uid)
