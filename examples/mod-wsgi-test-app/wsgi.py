@@ -3,7 +3,7 @@ import logging
 
 from flask import Flask
 
-TEST_FILE = "/var/opt/lib/scc-tutorial/data/testfile.txt"
+TEST_FILE = "/var/opt/app-root/src/data/testfile.txt"
 INFO = logging.INFO
 ERROR = logging.ERROR
 DEBUG = logging.DEBUG
