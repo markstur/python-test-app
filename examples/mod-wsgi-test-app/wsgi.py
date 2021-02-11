@@ -1,5 +1,6 @@
 import os
 import logging
+import subprocess
 
 from flask import Flask
 
@@ -48,16 +49,44 @@ def tests():
     except Exception as e:
         msg(ERROR, repr(e))
 
+    # Test: SYS_TIME
+    msgs.append("<h3>SYS_TIME Testing</h3>")
+    out = subprocess.run(["date", "-s", "00:00:00"], capture_output=True)
+    print(out)
+    msg(INFO, f"Set time returncode: {out.returncode}")
+    msg(INFO, f"Set time stdout: {out.stdout}")
+    msg(INFO, f"Set time stderr: {out.stderr}")
+    try:
+        assert 0 == out.returncode, f"returncode != 0"
+        assert b'' == out.stderr, f"stderr != empty"
+        msg(INFO, "SUCCESS: Set time returncode and stderr OK")
+    except Exception as e:
+        msg(ERROR, repr(e))
+
     msgs.append("<h3>File Write Testing</h3>")
     msg(INFO, f"This app expects to write a file in {TEST_FILE}")
+    msg(INFO, "Write to a file and read it back.")
     try:
-        os.close(os.open(TEST_FILE, os.O_CREAT))
-        msg(INFO, f"Created file: {TEST_FILE}")
+        w = "Look at this. I wrote to a file."
+        f = open(TEST_FILE, "w")
+        f.write(w)
+        f.close()
+        msg(INFO, f"Wrote to file: {w}")
+        f = open(TEST_FILE, "r")
+        r = f.read()
+        f.close()
+        msg(INFO, f"Read back: {r}")
+        assert r == w, f"Wrote:{w} != Read:{r}"
+    except Exception as e:
+        msg(ERROR, repr(e))
+
+    msgs.append("<h3>File user/group Testing</h3>")
+    try:
         msg(INFO, f"Test file name: {TEST_FILE}")
         msg(INFO, f"Test file owner: {os.stat(TEST_FILE).st_uid}")
         msg(INFO, f"Test file group: {os.stat(TEST_FILE).st_gid}")
-        msg(INFO, f"os.chown {TEST_FILE} -1:5678")
-        os.chown(TEST_FILE, -1, 5678)
+        msg(INFO, f"os.chown {TEST_FILE} -1:5656")
+        os.chown(TEST_FILE, -1, 5656)
         msg(INFO, f"st_uid: {os.stat(TEST_FILE).st_uid}")
         msg(INFO, f"st_gid: {os.stat(TEST_FILE).st_gid}")
         os.chown(TEST_FILE, uid, gid)
