@@ -51,7 +51,9 @@ def tests():
 
     # Test: SYS_TIME
     msgs.append("<h3>SYS_TIME Testing</h3>")
-    out = subprocess.run(["date", "-s", "00:00:00"], capture_output=True)
+    out = subprocess.run(["date", "-s", "00:00:00"],
+                         stderr=subprocess.PIPE,
+                         stdout=subprocess.PIPE)
     print(out)
     msg(INFO, f"Set time returncode: {out.returncode}")
     msg(INFO, f"Set time stdout: {out.stdout}")
