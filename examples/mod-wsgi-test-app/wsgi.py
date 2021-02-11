@@ -8,13 +8,13 @@ INFO = logging.INFO
 ERROR = logging.ERROR
 DEBUG = logging.DEBUG
 BULLETS = {
-    INFO: ' * ',
+    INFO: ' *** ',
     ERROR: '!!! ',
     DEBUG: ' '
 }
 TAGS = {
-    INFO: 'code',
-    ERROR: 'b',
+    INFO: 'code style="color:green;"',
+    ERROR: 'b style="color:red;"',
     DEBUG: 'small'
 }
 
